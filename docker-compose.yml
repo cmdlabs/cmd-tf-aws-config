@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  terraform-utils:
+    image: cmdlabs/terraform-utils:latest
+    env_file: .env
+    entrypoint: ""
+    environment:
+      - AWS_SDK_LOAD_CONFIG=1
+    volumes:
+      - .:/work
+      - ~/.aws:/root/.aws
+      - ~/.ssh:/root/.ssh
+    working_dir: /work
+
+  envvars:
+    image: flemay/envvars:latest
+    env_file: .env
+    working_dir: /work
+    volumes:
+      - .:/work
+
+  aws:
+    image: cmdlabs/aws-utils:latest
+    env_file: .env
+    entrypoint: []
+    volumes:
+      - .:/work
+      - ~/.aws:/root/.aws
+      - ~/.ssh:/root/.ssh
+    working_dir: /work

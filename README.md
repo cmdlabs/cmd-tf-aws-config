@@ -1,6 +1,8 @@
 <!-- vim: set ft=markdown: -->
 # terraform-aws-config
 
+This module sets up AWS Config within an AWS Account.
+
 #### Table of contents
 
 1. [Overview](#overview)
