@@ -1,8 +1,9 @@
 resource "aws_s3_bucket" "bucket" {
   count = var.is_aggregator ? 1 : 0
 
-  acl    = "private"
-  bucket = var.bucket_name
+  acl           = "private"
+  bucket        = var.bucket_name
+  force_destroy = true
 
   server_side_encryption_configuration {
     rule {
