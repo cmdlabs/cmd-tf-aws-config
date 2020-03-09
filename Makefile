@@ -1,3 +1,5 @@
+RELEASE_VERSION = 0.3.0
+
 ifdef CI
 	PROFILE_REQUIRED=profile
 endif
@@ -33,6 +35,11 @@ PHONY: apply
 destroy: .env $(PROFILE_REQUIRED) init
 	docker-compose run --rm terraform-utils terraform destroy -auto-approve tests
 PHONY: destroy
+
+tag:
+	git tag $(RELEASE_VERSION)
+	git push origin $(RELEASE_VERSION)
+PHONY: tag
 
 profile: .env
 	docker-compose run --rm envvars ensure --tags profile
