@@ -1,0 +1,53 @@
+stages:
+  - format
+  - lint
+  - plan
+  - apply
+  - destroy
+
+format:
+  stage: format
+  tags:
+    - cmd
+  script:
+    - make formatCheck
+
+lint:
+  stage: lint
+  tags:
+    - cmd
+  script:
+    - make lint
+
+plan:
+  stage: plan
+  tags:
+    - cmd
+  variables:
+    AWS_ROLE_NAME: gitlab_runner
+    AWS_ACCOUNT_ID: 354334841216
+    AWS_PROFILE_NAME: cmdlabtf-master
+  script:
+    - make plan
+
+apply:
+  stage: apply
+  tags:
+    - cmd
+  variables:
+    AWS_ROLE_NAME: gitlab_runner
+    AWS_ACCOUNT_ID: 354334841216
+    AWS_PROFILE_NAME: cmdlabtf-master
+  script:
+    - make apply
+
+destroy:
+  stage: destroy
+  tags:
+    - cmd
+  variables:
+    AWS_ROLE_NAME: gitlab_runner
+    AWS_ACCOUNT_ID: 354334841216
+    AWS_PROFILE_NAME: cmdlabtf-master
+  script:
+    - make destroy
