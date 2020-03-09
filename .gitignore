@@ -1,4 +1,9 @@
-**/.terraform
+#   Terraform
+**/.terraform/*
 **/*.tfstate*
+*.tfvars
+
+#   Misc
+.env
 **/venv
 **/__pycache__
