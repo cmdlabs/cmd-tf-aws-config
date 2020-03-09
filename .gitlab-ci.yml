@@ -25,7 +25,7 @@ plan:
     - cmd
   variables:
     AWS_ROLE_NAME: gitlab_runner
-    AWS_ACCOUNT_ID: 354334841216
+    AWS_ACCOUNT_ID: 471871437096
     AWS_PROFILE_NAME: cmdlabtf-master
   script:
     - make plan
@@ -36,7 +36,7 @@ apply:
     - cmd
   variables:
     AWS_ROLE_NAME: gitlab_runner
-    AWS_ACCOUNT_ID: 354334841216
+    AWS_ACCOUNT_ID: 471871437096
     AWS_PROFILE_NAME: cmdlabtf-master
   script:
     - make apply
@@ -47,7 +47,7 @@ destroy:
     - cmd
   variables:
     AWS_ROLE_NAME: gitlab_runner
-    AWS_ACCOUNT_ID: 354334841216
+    AWS_ACCOUNT_ID: 471871437096
     AWS_PROFILE_NAME: cmdlabtf-master
   script:
     - make destroy
