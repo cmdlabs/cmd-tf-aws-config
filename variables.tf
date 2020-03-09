@@ -55,7 +55,7 @@ variable "bucket_name" {
 variable "config_rules" {
   type        = map(any)
   description = "A list of config rules. By not specifying, a minimum set of recommended rules are applied"
-  default     = {
+  default = {
     eip_attached = {
       name = "eip-attached"
       source = {
