@@ -56,6 +56,7 @@ The below outlines the current parameters and defaults.
 |aggregator_account_region|The AWS Region of the aggregator account|string|null|No|
 |source_account_ids|List of 12-digit account IDs of the accounts being aggregated|list(string)|[]|No|
 |bucket_name|The bucket name - required by both aggregator and source accounts|string|""|Yes|
+|force_destroy|A boolean that indicates all objects (including any locked objects) should be deleted from the bucket so that the bucket can be destroyed without error|bool|false|No
 |config_rules|A list of config rules. By not specifying, a minimum set of recommended rules are applied|map(any)|(map)|No|
 
 ### Outputs
