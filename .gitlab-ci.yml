@@ -4,6 +4,7 @@ stages:
   - plan
   - apply
   - destroy
+  - publish
 
 format:
   stage: format
@@ -25,7 +26,7 @@ plan:
     - cmd
   variables:
     AWS_ROLE_NAME: gitlab_runner
-    AWS_ACCOUNT_ID: 758485258690
+    AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID_SANDPIT
     AWS_PROFILE_NAME: cmdlab-sandpit
   script:
     - make plan
@@ -36,7 +37,7 @@ apply:
     - cmd
   variables:
     AWS_ROLE_NAME: gitlab_runner
-    AWS_ACCOUNT_ID: 758485258690
+    AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID_SANDPIT
     AWS_PROFILE_NAME: cmdlab-sandpit
   script:
     - make apply
@@ -47,7 +48,19 @@ destroy:
     - cmd
   variables:
     AWS_ROLE_NAME: gitlab_runner
-    AWS_ACCOUNT_ID: 758485258690
+    AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID_SANDPIT
     AWS_PROFILE_NAME: cmdlab-sandpit
   script:
     - make destroy
+
+publish:
+  stage: publish
+  tags:
+    - cmd
+  script:
+    - make publish
+  variables:
+    GIT_STRATEGY: clone
+  only:
+    - master
+    - tags
