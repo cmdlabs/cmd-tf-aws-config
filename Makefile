@@ -25,7 +25,7 @@ init: .env $(PROFILE_REQUIRED)
 PHONY: init
 
 plan: .env $(PROFILE_REQUIRED) init
-	docker-compose run --rm terraform-utils sh -c 'TF_VAR_aggregator_account_id=$${AWS_ACCOUNT_ID_AGGREGATOR} terraform plan tests'
+	docker-compose run --rm terraform-utils sh -c 'TF_LOG=DEBUG TF_VAR_aggregator_account_id=$${AWS_ACCOUNT_ID_AGGREGATOR} terraform plan tests'
 PHONY: plan
 
 apply: .env $(PROFILE_REQUIRED) init
