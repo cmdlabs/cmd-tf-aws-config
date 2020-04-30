@@ -22,7 +22,6 @@ variable "transition_to_glacier" {
   default     = 30
 }
 
-
 variable "is_aggregator" {
   type        = bool
   description = "Whether the account is to be an aggregator or not"

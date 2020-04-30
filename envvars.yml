@@ -40,6 +40,11 @@ envvars:
     tags:
       - aws
 
+  - name: AWS_ACCOUNT_ID_AGGREGATOR
+    desc: Account Id of the Aggregator Account
+    tags:
+      - aws
+
   - name: CI_PROJECT_NAME
     desc: Gitlab project name
     tags:
