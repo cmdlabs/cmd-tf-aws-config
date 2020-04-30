@@ -51,6 +51,13 @@ variable "bucket_name" {
   description = "The bucket name - required by both aggregator and source accounts"
 }
 
+variable "config_role_name" {
+  type        = string
+  description = "Name of the role for config"
+  default     = "CmdlabtfConfigRole"
+}
+
+
 variable "force_destroy" {
   type        = bool
   description = "A boolean that indicates all objects (including any locked objects) should be deleted from the bucket so that the bucket can be destroyed without error"
