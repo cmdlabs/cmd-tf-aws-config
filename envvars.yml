@@ -40,7 +40,7 @@ envvars:
     tags:
       - aws
 
-  - name: AWS_ACCOUNT_ID_AGGREGATOR
+  - name: TF_VAR_aggregator_account_id
     desc: Account Id of the Aggregator Account
     tags:
       - aws

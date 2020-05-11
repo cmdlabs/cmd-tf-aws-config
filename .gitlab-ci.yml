@@ -9,9 +9,8 @@ stages:
 variables:
   AWS_ROLE_NAME: gitlab_runner
   AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID_SANDPIT
-  AWS_PROFILE_NAME: cmdlab-sandpit
-  AWS_ACCOUNT_ID_AGGREGATOR: $AWS_ACCOUNT_ID_AGGREGATOR
-  
+  AWS_PROFILE_NAME: cmdlabtf-sandpit
+
 format:
   stage: format
   tags:
