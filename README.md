@@ -1,6 +1,8 @@
 <!-- vim: set ft=markdown: -->
 # terraform-aws-config
 
+This module sets up AWS Config within an AWS Account.
+
 #### Table of contents
 
 1. [Overview](#overview)
@@ -54,6 +56,7 @@ The below outlines the current parameters and defaults.
 |aggregator_account_region|The AWS Region of the aggregator account|string|null|No|
 |source_account_ids|List of 12-digit account IDs of the accounts being aggregated|list(string)|[]|No|
 |bucket_name|The bucket name - required by both aggregator and source accounts|string|""|Yes|
+|force_destroy|A boolean that indicates all objects (including any locked objects) should be deleted from the bucket so that the bucket can be destroyed without error|bool|false|No
 |config_rules|A list of config rules. By not specifying, a minimum set of recommended rules are applied|map(any)|(map)|No|
 
 ### Outputs
@@ -66,55 +69,7 @@ The below outlines the current parameters and defaults.
 |recorder_id|Name of the recorder|
 |topic_arn|The ARN of the SNS topic AWS Config writes events to|
 
-### Examples
 
-#### Aggregator Account
-
-A Config account configured as an Aggregator:
-
-```tf
-variable "aggregator_account_id" {}
-variable "source_account_id" {}
-
-variable "bucket_name" {}
-
-module "aggregator" {
-  source                    = "git@github.com:cmdlabs/terraform-aws-config.git"
-  is_aggregator             = true
-  aggregator_account_id     = var.aggregator_account_id
-  aggregator_account_region = "ap-southeast-2"
-  source_account_ids        = [var.source_account_id]
-  bucket_name               = var.bucket_name
-}
-```
-
-To apply that:
-
-```text
-▶ export TF_VAR_bucket_name=config-bucket-"$(uuidgen | tr 'A-Z' 'a-z')"  # bucket name must be globally unique
-▶ TF_VAR_aggregator_account_id=xxxxxxxxxxxx TF_VAR_source_account_id=yyyyyyyyyyyy terraform apply
-```
-
-#### Source Account
-
-Then a Config Source that points to its S3 bucket:
-
-```tf
-variable "bucket_name" {}
-
-module "source" {
-  source        = "git@github.com:cmdlabs/terraform-aws-config.git"
-  is_aggregator = false
-  bucket_name   = var.bucket_name
-}
-```
-
-To apply that:
-
-```text
-# $TF_VAR_bucket_name set from above.
-▶ terraform apply
-```
 
 ## License
 

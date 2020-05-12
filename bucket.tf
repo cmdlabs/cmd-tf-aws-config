@@ -1,8 +1,9 @@
 resource "aws_s3_bucket" "bucket" {
   count = var.is_aggregator ? 1 : 0
 
-  acl    = "private"
-  bucket = var.bucket_name
+  acl           = "private"
+  bucket        = var.bucket_name
+  force_destroy = var.force_destroy
 
   server_side_encryption_configuration {
     rule {
@@ -23,40 +24,6 @@ resource "aws_s3_bucket" "bucket" {
 
     expiration {
       days = var.expiration
-    }
-  }
-}
-
-data "aws_iam_policy_document" "config" {
-  statement {
-    actions = ["s3:GetBucketAcl"]
-    principals {
-      type        = "Service"
-      identifiers = ["config.amazonaws.com"]
-    }
-    resources = ["arn:aws:s3:::${var.bucket_name}"]
-  }
-
-  statement {
-    actions = ["s3:ListBucket"]
-    principals {
-      type        = "Service"
-      identifiers = ["config.amazonaws.com"]
-    }
-    resources = ["arn:aws:s3:::${var.bucket_name}"]
-  }
-
-  statement {
-    actions = ["s3:PutObject"]
-    principals {
-      type        = "Service"
-      identifiers = ["config.amazonaws.com"]
-    }
-    resources = ["arn:aws:s3:::${var.bucket_name}/AWSLogs/*"]
-    condition {
-      test     = "StringLike"
-      variable = "s3:x-amz-acl"
-      values   = ["bucket-owner-full-control"]
     }
   }
 }
