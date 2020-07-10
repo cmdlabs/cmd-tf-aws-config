@@ -1,5 +1,5 @@
 resource "aws_config_aggregate_authorization" "aggregation_authorization" {
-  count      = var.is_aggregator ? 1 : 0
+  count      = var.is_aggregator ? 0 : 1
   account_id = var.aggregator_account_id
   region     = var.aggregator_account_region
 }
