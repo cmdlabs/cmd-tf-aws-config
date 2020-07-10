@@ -37,7 +37,7 @@ destroy: .env $(PROFILE_REQUIRED) init
 PHONY: destroy
 
 tag:
-	git tag $(RELEASE_VERSION)
+	git tag -a $(RELEASE_VERSION) -m ''
 	git push origin $(RELEASE_VERSION)
 PHONY: tag
 
