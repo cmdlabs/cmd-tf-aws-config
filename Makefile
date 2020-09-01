@@ -1,45 +1,45 @@
-RELEASE_VERSION = 0.4.0
+RELEASE_VERSION = 0.5.0
 
 ifdef CI
 	PROFILE_REQUIRED=profile
 endif
 
 docs: .env
-	docker-compose run --rm terraform-utils terraform-docs markdown document . > README.md
-PHONY: docs
+	docker-compose run --rm terraform-utils terraform-docs markdown document --no-providers . > README.md
+.PHONY: docs
 
 format: .env
 	docker-compose run --rm terraform-utils terraform fmt -recursive .
-PHONY: format
+.PHONY: format
 
 formatCheck: .env
 	docker-compose run --rm terraform-utils terraform fmt -recursive -check -diff .
-PHONY: formatCheck
+.PHONY: formatCheck
 
 lint: .env
 	@echo "not implemented yet"
-PHONY: lint
+.PHONY: lint
 
 init: .env $(PROFILE_REQUIRED)
 	docker-compose run --rm terraform-utils terraform init tests
-PHONY: init
+.PHONY: init
 
 plan: .env $(PROFILE_REQUIRED) init
 	docker-compose run --rm terraform-utils terraform plan tests
-PHONY: plan
+.PHONY: plan
 
 apply: .env $(PROFILE_REQUIRED) init
 	docker-compose run --rm terraform-utils terraform apply -auto-approve tests
-PHONY: apply
+.PHONY: apply
 
 destroy: .env $(PROFILE_REQUIRED) init
 	docker-compose run --rm terraform-utils terraform destroy -auto-approve tests
-PHONY: destroy
+.PHONY: destroy
 
 tag:
 	git tag -a $(RELEASE_VERSION) -m ''
 	git push origin $(RELEASE_VERSION)
-PHONY: tag
+.PHONY: tag
 
 publish: .env
 	docker-compose run --rm envvars ensure --tags publish
@@ -49,7 +49,7 @@ publish: .env
 	git pull origin master
 	git push --follow-tags github master || git fetch --unshallow origin master; git push --follow-tags github master
 	docker-compose run --rm terraform-utils curl -X POST -H 'Content-type: application/json' --data '{"text":"A new commit has been published to Github\nProject: $(CI_PROJECT_NAME)\nRef: $(CI_COMMIT_REF_NAME)\nDiff: https://github.com/cmdlabs/$(CI_PROJECT_NAME)/commit/$(CI_COMMIT_SHA)"}' $(GIT_PUBLISHING_WEBHOOK)
-PHONY: publish
+.PHONY: publish
 
 profile: .env
 	docker-compose run --rm envvars ensure --tags profile
@@ -62,3 +62,4 @@ profile: .env
 	touch .env
 	docker-compose run --rm envvars validate
 	docker-compose run --rm envvars envfile --overwrite
+.PHONY: .env
